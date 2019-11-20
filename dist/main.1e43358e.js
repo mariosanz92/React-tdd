@@ -31804,10 +31804,11 @@ function (_Component) {
   _createClass(NewRestaurantForm, [{
     key: "render",
     value: function render() {
+      var inputText = this.state.inputText;
       return _react.default.createElement("div", null, _react.default.createElement("input", {
         type: "text",
         "data-set": "newRestaurantName",
-        value: this.state.inputText,
+        value: inputText,
         onChange: this.handleTextChange
       }), _react.default.createElement("button", {
         "data-set": "saveNewRestaurantButton",
@@ -31910,13 +31911,21 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(RestaurantListPage)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
-      restaurantNames: []
+      restaurantNames: [],
+      showNewRestaurantForm: false
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "handleShowNewRestaurant", function () {
+      _this.setState({
+        showNewRestaurantForm: true
+      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleAddRestaurant", function (newRestaurantName) {
       _this.setState(function (state) {
         return {
-          restaurantNames: [newRestaurantName].concat(_toConsumableArray(state.restaurantNames))
+          restaurantNames: [newRestaurantName].concat(_toConsumableArray(state.restaurantNames)),
+          showNewRestaurantForm: false
         };
       });
     });
@@ -31927,12 +31936,15 @@ function (_Component) {
   _createClass(RestaurantListPage, [{
     key: "render",
     value: function render() {
-      var restaurantNames = this.state.restaurantNames;
+      var _this$state = this.state,
+          restaurantNames = _this$state.restaurantNames,
+          showNewRestaurantForm = _this$state.showNewRestaurantForm;
       return _react.default.createElement("div", null, _react.default.createElement("button", {
+        onClick: this.handleShowNewRestaurant,
         "data-set": "addRestaurantButton"
-      }, "Add Restaurant"), _react.default.createElement(_NewRetaurantForm.default, {
+      }, "Add Restaurant"), showNewRestaurantForm ? _react.default.createElement(_NewRetaurantForm.default, {
         onSave: this.handleAddRestaurant
-      }), _react.default.createElement(_RestaurantList.default, {
+      }) : null, _react.default.createElement(_RestaurantList.default, {
         restaurantNames: restaurantNames
       }));
     }

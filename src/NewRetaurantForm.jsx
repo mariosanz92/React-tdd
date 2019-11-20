@@ -12,14 +12,17 @@ export default class NewRestaurantForm extends Component {
     const { onSave } = this.props;
 
     onSave(inputText);
+
+    
   }
   render() {
+    const { inputText } = this.state;
     return (
       <div>
         <input
           type="text"
           data-set= "newRestaurantName"
-          value = {this.state.inputText}
+          value = {inputText}
           onChange = {this.handleTextChange}
         />
         <button
